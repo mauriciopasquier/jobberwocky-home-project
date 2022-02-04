@@ -4,12 +4,10 @@ class JobsController < ApplicationController
 
   # GET /jobs
   def index
-    render json: @jobs
   end
 
   # GET /jobs/1
   def show
-    render json: @job
   end
 
   # POST /jobs
@@ -17,7 +15,7 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
 
     if @job.save
-      render json: @job, status: :created, location: @job
+      render @job, status: :created
     else
       render json: @job.errors, status: :unprocessable_entity
     end

@@ -17,4 +17,10 @@ class JobTest < ActiveSupport::TestCase
 
     assert @job.skills.include?(skill)
   end
+
+  test 'it returns an array of skill names' do
+    @job.skills = ['Ruby', 'React']
+
+    assert @job.skill_names == ['Ruby', 'React']
+  end
 end

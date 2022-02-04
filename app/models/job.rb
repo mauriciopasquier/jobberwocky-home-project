@@ -18,4 +18,8 @@ class Job < ApplicationRecord
 
     super initialized_skills
   end
+
+  def skill_names
+    skills.map(&:name)
+  end
 end
