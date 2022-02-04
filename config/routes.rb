@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root 'jobs#index'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # Restrict the available routes to those supported.
+  resources :jobs, only: [:index, :show, :create]
 end
