@@ -13,3 +13,10 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+class ActionDispatch::IntegrationTest
+  # Helper for accessing the response as parsed json.
+  def json
+    JSON.parse(@response.body)
+  end
+end

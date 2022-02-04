@@ -1,10 +1,9 @@
 class JobsController < ApplicationController
+  before_action :filter, only: [:index]
   before_action :set_job, only: [:show]
 
   # GET /jobs
   def index
-    @jobs = Job.all
-
     render json: @jobs
   end
 
@@ -34,5 +33,11 @@ class JobsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def job_params
     params.require(:job).permit(:name, :country, :salary, skills: [])
+  end
+
+  # Scope chaining to filter results by param.
+  def filter
+    @jobs = Job.all
+    @jobs = @jobs.with_name(params[:name]) if params[:name]
   end
 end

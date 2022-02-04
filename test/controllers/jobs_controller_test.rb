@@ -7,6 +7,17 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should filter jobs by name' do
+    create :job, name: 'first'
+    create :job, name: 'second'
+
+    get jobs_path(name: 'first'), as: :json
+
+    assert_response :success
+    assert json.size == 1
+    assert json.first['name'] == 'first'
+  end
+
   test 'should create job' do
     job = build :job
 
