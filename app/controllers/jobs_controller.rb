@@ -39,5 +39,6 @@ class JobsController < ApplicationController
   def filter
     @jobs = Job.all
     @jobs = @jobs.with_name(params[:name]) if params[:name]
+    @jobs = @jobs.with_skills(params[:skills]) if params[:skills]
   end
 end

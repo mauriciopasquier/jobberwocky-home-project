@@ -18,6 +18,22 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     assert json.first['name'] == 'first'
   end
 
+  test 'should filter jobs by skill' do
+    ['Ruby', 'React', 'Python'].each { |skill| create :skill, name: skill }
+
+    create :job, name: 'first', skills: ['Ruby', 'React']
+    create :job, name: 'second', skills: ['Python', 'React']
+
+    get jobs_path(skills:  ['Ruby']), as: :json
+
+    assert_response :success
+    assert json.size == 1
+    assert json.first['name'] == 'first'
+
+    get jobs_path(skills:  ['React']), as: :json
+    assert json.size == 2
+  end
+
   test 'should create job' do
     job = build :job
 

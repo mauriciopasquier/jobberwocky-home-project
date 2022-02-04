@@ -3,7 +3,8 @@ class Job < ApplicationRecord
 
   validates :name, presence: true
 
-  scope :with_name, ->(name) { where Job.arel_table[:name].matches(("%#{name}%")) }
+  scope :with_name, ->(name) { where Job.arel_table[:name].matches("%#{name}%") }
+  scope :with_skills, ->(skills) { joins(:skills).where Skill.arel_table[:name].matches_any(skills) }
 
   # Gets a list of skill names as strings and associates the corresponding
   # Skill model.
