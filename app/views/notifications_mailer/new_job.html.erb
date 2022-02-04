@@ -1,0 +1,10 @@
+<h1>We have a new job opporunity for you!</h1>
+
+<p>Hi! We have this job you might find interesting:</p>
+
+<ul>
+  <li><%= @job.name %></li>
+  <li>Country: <%= @job.country %></li>
+  <li>Salary: <%= @job.salary %></li>
+  <li>Required skills: <%= @job.skill_names.to_sentence %></li>
+</ul>

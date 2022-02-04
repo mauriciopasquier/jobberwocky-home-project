@@ -17,6 +17,8 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
 
     if @job.save
+      notify_new_job!
+
       render @job, status: :created
     else
       render json: @job.errors, status: :unprocessable_entity
@@ -51,5 +53,12 @@ class JobsController < ApplicationController
   # Filter the params compatible with the external API
   def jobs_query
     params.permit :name, :salary_min, :salary_max, :country
+  end
+
+  # Notify every subscriptor about the new job offering.
+  def notify_new_job!
+    Subscription.find_each do |subscription|
+      NotificationsMailer.with(subscription: subscription).new_job(@job).deliver_later
+    end
   end
 end

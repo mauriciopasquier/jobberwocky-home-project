@@ -74,4 +74,13 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+
+  test 'should notify subscriptors' do
+    2.times { create :subscription }
+    job = build :job
+
+    assert_emails 2 do
+      post jobs_path, params: { job: { name: job.name } }, as: :json
+    end
+  end
 end
