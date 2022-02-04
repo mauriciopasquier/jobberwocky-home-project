@@ -36,6 +36,7 @@ class JobsController < ApplicationController
   end
 
   # Scope chaining to filter results by param.
+  # TODO, Add missing filters
   def filter
     @jobs = Job.all
     @jobs = @jobs.with_name(params[:name]) if params[:name]

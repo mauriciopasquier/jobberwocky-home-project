@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   # Restrict the available routes to those supported.
   resources :jobs, only: [:index, :show, :create]
+  resources :subscriptions, only: [:create, :show, :destroy]
 end

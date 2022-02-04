@@ -6,7 +6,7 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test 'it requires name' do
-    refute build(:job, name: nil).valid?
+    assert_not build(:job, name: nil).valid?
   end
 
   test 'it can have skills' do
