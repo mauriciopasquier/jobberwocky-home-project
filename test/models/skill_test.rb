@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class SkillTest < Minitest::Spec
-  it 'requires name' do
-    _(build(:skill, name: nil)).wont_be :valid?
+class SkillTest < ActiveSupport::TestCase
+  test 'it requires name' do
+    refute build(:skill, name: nil).valid?
   end
 end
