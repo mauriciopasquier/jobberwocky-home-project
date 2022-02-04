@@ -2,7 +2,9 @@ require 'test_helper'
 
 class JobsControllerTest < ActionDispatch::IntegrationTest
   test 'should get index' do
-    get jobs_path, as: :json
+    ExtraSourceService.stub_any_instance(:jobs, []) do
+      get jobs_path, as: :json
+    end
 
     assert_response :success
   end
@@ -11,7 +13,9 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     create :job, name: 'first'
     create :job, name: 'second'
 
-    get jobs_path(name: 'first'), as: :json
+    ExtraSourceService.stub_any_instance(:jobs, []) do
+      get jobs_path(name: 'first'), as: :json
+    end
 
     assert_response :success
     assert json.size == 1
@@ -24,13 +28,18 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     create :job, name: 'first', skills: ['Ruby', 'React']
     create :job, name: 'second', skills: ['Python', 'React']
 
-    get jobs_path(skills:  ['Ruby']), as: :json
+    ExtraSourceService.stub_any_instance(:jobs, []) do
+      get jobs_path(skills:  ['Ruby']), as: :json
+    end
 
     assert_response :success
     assert json.size == 1
     assert json.first['name'] == 'first'
 
-    get jobs_path(skills:  ['React']), as: :json
+    ExtraSourceService.stub_any_instance(:jobs, []) do
+      get jobs_path(skills:  ['React']), as: :json
+    end
+
     assert json.size == 2
   end
 

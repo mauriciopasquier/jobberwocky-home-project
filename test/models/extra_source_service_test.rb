@@ -15,9 +15,9 @@ class ExtraSourceServiceTest < ActiveSupport::TestCase
 
     parsed_job = @service.parse_job(response)
 
-    assert parsed_job[:name] == 'Jr Java Developer'
-    assert parsed_job[:salary] == '24000'
-    assert parsed_job[:country] == 'Argentina'
-    assert parsed_job[:skills] == ['Java', 'OOP']
+    assert parsed_job.name == 'Jr Java Developer'
+    assert parsed_job.salary == 24000
+    assert parsed_job.country == 'Argentina'
+    assert parsed_job.skill_names == ['Java', 'OOP']
   end
 end

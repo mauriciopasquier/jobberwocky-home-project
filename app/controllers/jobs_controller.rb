@@ -4,6 +4,8 @@ class JobsController < ApplicationController
 
   # GET /jobs
   def index
+    # Merge both sources.
+    @jobs = @jobs + extra_source.jobs(jobs_query)
   end
 
   # GET /jobs/1
@@ -38,5 +40,15 @@ class JobsController < ApplicationController
     @jobs = Job.all
     @jobs = @jobs.with_name(params[:name]) if params[:name]
     @jobs = @jobs.with_skills(params[:skills]) if params[:skills]
+  end
+
+  def extra_source
+    # Access jobs from external sources.
+    @extra_source ||= ExtraSourceService.new
+  end
+
+  # Filter the params compatible with the external API
+  def jobs_query
+    params.permit :name, :salary_min, :salary_max, :country
   end
 end

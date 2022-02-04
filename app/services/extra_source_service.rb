@@ -15,11 +15,11 @@ class ExtraSourceService
 
   # Parses a job as it comes from the external service, to our format.
   def parse_job(job)
-    {
+    Job.new({
       name: job[0],
       salary: job[1],
       country: job[2],
       skills: job[3]
-    }
+    })
   end
 end

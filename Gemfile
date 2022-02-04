@@ -45,6 +45,8 @@ group :development, :test do
 
   # Simple model factories for tests
   gem 'factory_bot_rails'
+  # Simplify stubbing in tests
+  gem 'minitest-stub_any_instance'
 end
 
 group :development do
