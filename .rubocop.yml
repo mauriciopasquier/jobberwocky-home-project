@@ -1,0 +1,62 @@
+require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/HashAlignment:
+  EnforcedLastArgumentHashStyle: ignore_implicit
+
+Layout/LineLength:
+  Max: 100
+
+Metrics/AbcSize:
+  Max: 20
+  Exclude:
+  - 'db/migrate/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+    - 'config/routes.rb'
+
+Metrics/ClassLength:
+  Max: 120
+  Exclude:
+    - 'test/**/*'
+
+Metrics/MethodLength:
+  Max: 15
+  Exclude:
+    - 'db/migrate/*'
+
+Rails/NotNullColumn:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Exclude:
+    - 'test/**/*'
+    - 'db/migrate/*'
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
