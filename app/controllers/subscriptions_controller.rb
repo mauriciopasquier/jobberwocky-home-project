@@ -33,6 +33,11 @@ class SubscriptionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def subscription_params
-    params.require(:subscription).permit(:email)
+    params.require(:subscription).permit(
+      :email, subscription_rules_attributes: [
+        :subscription_id, :name, :id, :salary_min, :salary_max, :country,
+        :skills, :_destroy
+      ]
+    )
   end
 end

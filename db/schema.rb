@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_04_153344) do
+ActiveRecord::Schema.define(version: 2022_02_04_163503) do
 
   create_table "jobs", force: :cascade do |t|
     t.string "name"
@@ -32,10 +32,22 @@ ActiveRecord::Schema.define(version: 2022_02_04_153344) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "subscription_rules", force: :cascade do |t|
+    t.integer "subscription_id", null: false
+    t.string "name"
+    t.integer "salary_min"
+    t.integer "salary_max"
+    t.string "country"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["subscription_id"], name: "index_subscription_rules_on_subscription_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "subscription_rules", "subscriptions"
 end
