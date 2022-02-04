@@ -75,12 +75,24 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should notify subscriptors' do
+  test 'should notify all subscriptors without filters' do
     2.times { create :subscription }
     job = build :job
 
     assert_emails 2 do
       post jobs_path, params: { job: { name: job.name } }, as: :json
+    end
+  end
+
+  test 'should notify subscriptors according to filters' do
+    create :subscription, subscription_rules: [build(:subscription_rule, country: 'Argentina')]
+    create :subscription, subscription_rules: [build(:subscription_rule, country: 'USA')]
+    create :subscription, subscription_rules: [build(:subscription_rule, salary_min: 10000)]
+    create :subscription, subscription_rules: [build(:subscription_rule, salary_min: 20000)]
+    job = build :job
+
+    assert_emails 2 do
+      post jobs_path, params: { job: { name: job.name, country: 'Argentina', salary: '15000' } }, as: :json
     end
   end
 end

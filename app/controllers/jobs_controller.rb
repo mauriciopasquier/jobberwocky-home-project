@@ -57,7 +57,13 @@ class JobsController < ApplicationController
 
   # Notify every subscriptor about the new job offering.
   def notify_new_job!
-    Subscription.find_each do |subscription|
+    # Subscriptors without rules get all the jobs.
+    Subscription.without_rules.find_each do |subscription|
+      NotificationsMailer.with(subscription: subscription).new_job(@job).deliver_later
+    end
+
+    # And subscriptors matching these rules get notified.
+    Subscription.with_rules(job_params).find_each do |subscription|
       NotificationsMailer.with(subscription: subscription).new_job(@job).deliver_later
     end
   end
